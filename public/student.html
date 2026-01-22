@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leave Management System</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="assets/styles/student.css">
+        <script src="student.js" defer></script>
+    </head>
+        <body class="bg-light">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Logo" width="36" height="36" style="border-radius:50%"> LMS
+                    </a>
+                    <span class="navbar-text ms-auto d-flex align-items-center gap-2">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" width="32" height="32" style="border-radius:50%">
+                    </span>
+                </div>
+            </nav>
+            <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
+                <div class="row w-100 justify-content-center">
+                    <div class="col-12 col-lg-10 col-xl-8">
+                        <div class="card shadow-lg border-0 rounded-4 p-4 mt-5 animate__animated animate__fadeInDown">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="fw-bold text-primary mb-0">Apply for Leave</h2>
+                                <button id="logoutBtn" class="btn btn-danger">Logout</button>
+                            </div>
+                            <form id="leaveForm" autocomplete="off">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="leave_type" class="form-label">Leave Type</label>
+                                        <select id="leave_type" name="leave_type" class="form-select" required>
+                                            <option value="casual">Casual</option>
+                                            <option value="sick">Sick</option>
+                                            <option value="emergency">Emergency</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="start_date" class="form-label">Start Date</label>
+                                        <input type="date" id="start_date" name="start_date" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="end_date" class="form-label">End Date</label>
+                                        <input type="date" id="end_date" name="end_date" class="form-control" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="Total_Days" class="form-label">Total Days</label>
+                                        <input type="number" id="Total_Days" name="Total_Days" class="form-control" required readonly>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="reason" class="form-label">Reason</label>
+                                        <textarea id="reason" name="reason" class="form-control" required placeholder="Describe your reason"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 mt-4">Submit</button>
+                            </form>
+                        </div>
+                        <div class="card shadow-sm border-0 rounded-4 p-4 mt-4 animate__animated animate__fadeInUp">
+                            <ul class="nav nav-tabs mb-3" id="requestTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="reacted-tab" data-bs-toggle="tab" data-bs-target="#reacted" type="button" role="tab" aria-controls="reacted" aria-selected="false">Approved/Rejected</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="history" aria-selected="false">History</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="requestTabsContent">
+                                <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Student ID</th>
+                                                    <th>Leave Type</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="pendingBody">
+                                                <!-- Pending requests will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="reacted" role="tabpanel" aria-labelledby="reacted-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Student ID</th>
+                                                    <th>Leave Type</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="reactedBody">
+                                                <!-- Approved/Rejected requests will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped align-middle">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Student ID</th>
+                                                    <th>Leave Type</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="historyBody">
+                                                <!-- History requests will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4 text-muted small">&copy; 2026 Leave Management System</div>
+                    </div>
+                </div>
+            </div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+                <!-- Only one form and one table should remain. -->
+</html>
